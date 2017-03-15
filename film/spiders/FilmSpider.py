@@ -24,17 +24,15 @@ class FilmSpider(scrapy.Spider):
         # 遍历这个list，处理每一个标签
         for content in content_list:
             # 此处解析标签，提取出我们需要的帖子标题。
-            item = FilmItem()
             title = content.xpath('string(.)').extract_first()
-            item["title"] = title
+
             # 此处提取出帖子的url地址。
             url = self.host + content.xpath('@href').extract_first()
-            print url
+            # print url
             yield Request(url=url, callback=self.parse_topic)
 
         next_page = selector.xpath("//div[@class='co_content8']/div//a[7]/@href").extract_first()
-        if  next_page:
-            print next_page
+        if next_page:
             next_page = "http://www.ygdy8.net/html/gndy/dyzz/" + next_page
             print next_page
             self.log('page_url: %s' % next_page)
@@ -44,6 +42,8 @@ class FilmSpider(scrapy.Spider):
     def parse_topic(self, response):
         selector = Selector(response)
         url = selector.xpath("//*[@id='Zoom']//table//a/text()").extract_first()
-        print url
-        return url
+        item = FilmItem()
+        item["url"] = url
+        # print url
+        yield item
         # 可以在此处解析翻页信息，从而实现爬取帖子的多个页面

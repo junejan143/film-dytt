@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'film.spiders'
 
 #在配置文件里指定pipeline,后面的数字400表示的是优先级
 ITEM_PIPELINES = {
-    'film.pipelines.FilmPipeline':400,
+    'film.pipelines.JsonWriterPipeline': 400,
 }
 
 # 当访问异常时是否进行重试
@@ -73,7 +73,7 @@ ROBOTSTXT_OBEY = True
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     # 'film.middlewares.MyCustomDownloaderMiddleware': 543,
-    'film.middlewares.UserAgentMiddleware': 401,
+    # 'film.middlewares.UserAgentMiddleware': 401,
     # 'film.middlewares.ProxyMiddleware': 402,
 }
 
