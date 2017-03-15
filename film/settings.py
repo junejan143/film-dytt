@@ -14,6 +14,25 @@ BOT_NAME = 'film'
 SPIDER_MODULES = ['film.spiders']
 NEWSPIDER_MODULE = 'film.spiders'
 
+#在配置文件里指定pipeline,后面的数字400表示的是优先级
+ITEM_PIPELINES = {
+    'film.pipelines.FilmPipeline':400,
+}
+
+# 当访问异常时是否进行重试
+RETRY_ENABLED = True
+# 当遇到以下http状态码时进行重试
+RETRY_HTTP_CODES = [500, 502, 503, 504, 400, 403, 404, 408]
+# 重试次数
+RETRY_TIMES = 5
+# Pipeline的并发数。同时最多可以有多少个Pipeline来处理item
+CONCURRENT_ITEMS = 200
+# 并发请求的最大数
+CONCURRENT_REQUESTS = 100
+# 对一个网站的最大并发数
+CONCURRENT_REQUESTS_PER_DOMAIN = 50
+# 对一个IP的最大并发数
+CONCURRENT_REQUESTS_PER_IP = 50
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'film (+http://www.yourdomain.com)'
@@ -27,7 +46,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -46,15 +65,17 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
+# SPIDER_MIDDLEWARES = {
 #    'film.middlewares.FilmSpiderMiddleware': 543,
-#}
+# }
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'film.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    # 'film.middlewares.MyCustomDownloaderMiddleware': 543,
+    'film.middlewares.UserAgentMiddleware': 401,
+    # 'film.middlewares.ProxyMiddleware': 402,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

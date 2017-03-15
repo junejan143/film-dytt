@@ -12,8 +12,4 @@ class FilmPipeline(object):
         if isinstance(item, FilmItem):
             ## 在此可进行文件写入、数据库写入等操作
             pass
-        if isinstance(item, FilmItem):
-            ## 在此可进行文件写入、数据库写入等操作
-            pass
-        ## ...
         return item
