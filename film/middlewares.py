@@ -68,11 +68,11 @@ agents = [
     "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.24 Safari/535.1",
 ]
 
-# class UserAgentMiddleware(object):
-#     def process_request(self, request, spider):
-#         agent = random.choice(agents)
-#         request.headers["User-Agent"] = agent
-#
+class UserAgentMiddleware(object):
+    def process_request(self, request, spider):
+        agent = random.choice(agents)
+        request.headers["User-Agent"] = agent
+
 # # 破网站封IP，我要用代理
 # class ProxyMiddleware(object):
 #     def process_request(self, request, spider):

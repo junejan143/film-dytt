@@ -10,5 +10,5 @@ from scrapy import Item, Field
 
 class FilmItem(Item):
     url = Field()
-    title = Field()
+    name = Field()
     # author = Field()
